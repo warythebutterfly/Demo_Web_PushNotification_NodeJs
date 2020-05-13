@@ -1,6 +1,6 @@
-//import { sendNotification } from "web-push";
+require('dotenv').config();
 
-const publicVapidKey = 'BK-yh6DD8Lf6fd4h_gmqC-Oz9fS2CUNf6KP06hh3w8P9Tr173yPQTPKEaokEkZ2rGpjzMdU3K5sDBCl2de9XhKA';
+const publicVapidKey = process.env.PUBLIC_KEY;
 
 //check for service worker
 

@@ -2,7 +2,7 @@ const express = require('express');
 const webPush = require('web-push');
 const bodyParser = require('body-parser');
 const path = require('path');
-
+require('dotenv').config();
 const app = express();
 
 //set static path
@@ -15,8 +15,8 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 
-const publicVapidKey = 'BK-yh6DD8Lf6fd4h_gmqC-Oz9fS2CUNf6KP06hh3w8P9Tr173yPQTPKEaokEkZ2rGpjzMdU3K5sDBCl2de9XhKA';
-const privateVapidKey = 'WFr50TZ2Ny2od4IF1q37-OZX9sLKuUgXkKAN0ltCXCI';
+const publicVapidKey = process.env.PUBLIC_KEY;
+const privateVapidKey = process.env.PRIVATE_KEY;
 
 webPush.setVapidDetails('mailto:temitoyosi@gmail.com', publicVapidKey, privateVapidKey);
 
@@ -27,8 +27,10 @@ app.post('/sendpush', (req, res) => {
     console.log(req.body);
     var titleInput = req.body.title
     var bodyInput = req.body.body
+
     //console.log(titleInput, bodyInput);
     //console.log(title,body)
+
     const payload = JSON.stringify({ title: titleInput, body: bodyInput });
     const subscription = {
         endpoint: 'https://fcm.googleapis.com/fcm/send/c3aW7iUml3g:APA91bHUr8i9TmzGl4HUQo__aLH7v8RV--LCgxtbwrza5y0tVYFzSZDceIbRS7veM7FQxFQurWHoNzfUT4bBJaOgQH1Q6An75A6Uh4c5ZtsDRvzFnNhJ11iC9qJ6D7KCIlloIs4YkTfC',
@@ -55,6 +57,7 @@ app.post('/sendpush', (req, res) => {
 
 })
 
+//if i want to use this post, remeber to change fetch to /subcribe
 app.post('/subscribe', (req, res) => {
 
 
